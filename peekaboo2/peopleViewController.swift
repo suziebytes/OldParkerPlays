@@ -36,7 +36,6 @@ class PeopleViewController: UIViewController {
         imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -30).isActive = true
         imageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 15).isActive = true
         imageView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
-        
     }
     
     func setupbuttonToAnimals(){

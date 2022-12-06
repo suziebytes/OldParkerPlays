@@ -17,20 +17,20 @@ class AnimalViewController: UIViewController {
     
     let labelContainerView = UIView()
     let animalLabel = UILabel()
-
-   
-    //create a label using UILabel
     
-    //create UIImage for our sound image button - use UIbutton and set background to sound image instead?
+    let buttonToPeople = UIButton()
+//    let peopleViewController : PeopleViewController = PeopleViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         
+        buttonToPeople.addTarget(self, action: #selector(goBackToPeople), for: .touchUpInside)
+        
         setupAnimalView()
         setupLabelContainerView()
         setupLabel()
-        
+        setupGoToPeopleButton()
     }
     
     func setupAnimalView(){
@@ -74,13 +74,31 @@ class AnimalViewController: UIViewController {
         animalLabel.clipsToBounds = true
         animalLabel.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         
-        
         //CONSTRAINTS
         animalLabel.translatesAutoresizingMaskIntoConstraints = false
         animalLabel.topAnchor.constraint(equalTo: labelContainerView.topAnchor).isActive = true
         animalLabel.bottomAnchor.constraint(equalTo: labelContainerView.bottomAnchor).isActive = true
         animalLabel.leftAnchor.constraint(equalTo: labelContainerView.leftAnchor, constant: 10).isActive = true
         animalLabel.rightAnchor.constraint(equalTo: labelContainerView.rightAnchor).isActive = true
+    }
+    
+    func setupGoToPeopleButton(){
+        view.addSubview(buttonToPeople)
+//        buttonToPeople.addTarget(self, action: #selector(goBackToPeople), for: .touchUpInside)
+        buttonToPeople.backgroundColor = .blue
+
+        //CONSTRAINTS
+        buttonToPeople.translatesAutoresizingMaskIntoConstraints = false
+        buttonToPeople.topAnchor.constraint(equalTo: animalView.topAnchor, constant: 100).isActive = true
+        buttonToPeople.bottomAnchor.constraint(equalTo: animalView.bottomAnchor, constant: -100).isActive = true
+        buttonToPeople.leftAnchor.constraint(equalTo: animalView.leftAnchor).isActive = true
+        buttonToPeople.rightAnchor.constraint(equalTo: animalView.rightAnchor).isActive = true
+    }
+
+    @objc func goBackToPeople(sender: UIButton){
+        let peopleViewController : PeopleViewController = PeopleViewController()
+        self.present(peopleViewController, animated: true, completion: nil)
+        
     }
 }
 

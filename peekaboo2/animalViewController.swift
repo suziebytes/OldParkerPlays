@@ -19,14 +19,11 @@ class AnimalViewController: UIViewController {
     let animalLabel = UILabel()
     
     let buttonToPeople = UIButton()
-//    let peopleViewController : PeopleViewController = PeopleViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-        
-        buttonToPeople.addTarget(self, action: #selector(goBackToPeople), for: .touchUpInside)
-        
+            
         setupAnimalView()
         setupLabelContainerView()
         setupLabel()
@@ -84,8 +81,8 @@ class AnimalViewController: UIViewController {
     
     func setupGoToPeopleButton(){
         view.addSubview(buttonToPeople)
-//        buttonToPeople.addTarget(self, action: #selector(goBackToPeople), for: .touchUpInside)
-        buttonToPeople.backgroundColor = .blue
+        buttonToPeople.addTarget(self, action: #selector(goBackToPeople), for: .touchUpInside)
+        buttonToPeople.backgroundColor = .clear
 
         //CONSTRAINTS
         buttonToPeople.translatesAutoresizingMaskIntoConstraints = false
@@ -96,7 +93,7 @@ class AnimalViewController: UIViewController {
     }
 
     @objc func goBackToPeople(sender: UIButton){
-        let peopleViewController : PeopleViewController = PeopleViewController()
+        let peopleViewController = PeopleViewController()
         self.present(peopleViewController, animated: true, completion: nil)
         
     }

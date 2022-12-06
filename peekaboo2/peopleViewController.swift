@@ -11,7 +11,7 @@ class PeopleViewController: UIViewController {
     let imageView = UIImageView() //this is the image card
     let imageName = String(Int.random(in: 0..<20)) //Images are named from 1-20
     let buttonToAnimal = UIButton()
-    let animalViewController : AnimalViewController = AnimalViewController()
+
 
     
     override func viewDidLoad() {
@@ -60,6 +60,7 @@ class PeopleViewController: UIViewController {
     }
     
     @objc func goToAnimal(sender:UIButton) {
+        let animalViewController = AnimalViewController()
         self.present(animalViewController, animated: true, completion: nil)
     }
 }

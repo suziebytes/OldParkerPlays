@@ -11,7 +11,7 @@ class ViewController: UIViewController {
     let headerLabel = UILabel() //UILabel is a class - class is uppercase, func is lowercase
     let peekabooLabel = UILabel()
     let startButton = UIButton(type: .system)
-    let peopleViewcontroller : PeopleViewController = PeopleViewController()
+    let peopleViewcontroller = PeopleViewController()
 
     
     override func viewDidLoad() {

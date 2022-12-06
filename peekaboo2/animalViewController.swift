@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class AnimalViewController: UIViewController {
     
@@ -20,6 +21,8 @@ class AnimalViewController: UIViewController {
     
     let buttonToPeople = UIButton()
     let playButton = UIButton()
+    
+    let synthesizer = AVSpeechSynthesizer()
     
     
     //on click of playButton
@@ -115,6 +118,8 @@ class AnimalViewController: UIViewController {
         let playImageConfig = UIImage.SymbolConfiguration(pointSize: 35)
         let playImage = UIImage(systemName: "play.rectangle.fill", withConfiguration: playImageConfig)?.withTintColor(.black, renderingMode: .alwaysOriginal)
         
+        playButton.addTarget(self, action: #selector(playSound), for: .touchUpInside)
+        
         playButton.setImage(playImage, for: .normal)
         
         //    CONSTAINTS
@@ -123,5 +128,16 @@ class AnimalViewController: UIViewController {
         playButton.bottomAnchor.constraint(equalTo: labelContainerView.bottomAnchor, constant:  -10).isActive = true
         playButton.leftAnchor.constraint(equalTo: labelContainerView.leftAnchor).isActive = true
         playButton.rightAnchor.constraint(equalTo: labelContainerView.rightAnchor, constant:  300).isActive = true
+    }
+    
+    @objc func playSound(sender: UIButton){
+        //this function will use the AV to play the sound
+   
+        let utterance = AVSpeechUtterance(string: animalList[randNum])
+        utterance.rate = 0.1
+        utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+        synthesizer.speak(utterance)
+        
+
     }
 }

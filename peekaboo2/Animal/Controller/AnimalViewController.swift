@@ -13,8 +13,7 @@ class AnimalViewController: UIViewController {
     //create a card view using UIImageview
     let animalView = UIImageView()
     var randNum = Int.random(in: 0..<19)
-    
-    let animalList = ["Ant", "Bird", "Cat", "Chicken", "Cow", "Dog", "Duck", "Giraffe", "Horse", "Jelly Fish", "Lion", "Lizard", "Monkey", "Panda", "Pig", "Shark", "Skunk", "Tiger", "Zebra" ]
+    let animalList = [Animal(name: "Ant"), Animal(name: "Bird"), Animal(name: "Cat"), Animal(name: "Chicken"), Animal(name: "Cow"), Animal(name: "Dog"), Animal(name: "Duck"), Animal(name: "Giraffe"),Animal(name: "Horse"), Animal(name: "Jelly Fish"), Animal(name: "Fish"), Animal(name: "Lion"), Animal(name: "Lizard"), Animal(name: "Monkey"), Animal(name: "Panda"), Animal(name: "Pig"), Animal(name: "Shark"), Animal(name: "Skunk"), Animal(name: "Tiger"), Animal(name: "Zebra")]
     
     let labelContainerView = UIView()
     let animalLabel = UILabel()
@@ -23,16 +22,6 @@ class AnimalViewController: UIViewController {
     let playButton = UIButton()
     
     let synthesizer = AVSpeechSynthesizer()
-    
-    
-    //on click of playButton
-    //playButton selects the current animalLabel
-    //animalLabel passes through utterance
-    
-    //import AVFoundation
-    //in objc function for the button  --> set synthesizer and utterance
-     
-   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,11 +34,12 @@ class AnimalViewController: UIViewController {
         setupPlayButton()
     }
     
-    func setupAnimalView(){
-        let animalImage = animalList[randNum]
+    func setupAnimalView() {
+        let animal = animalList[randNum]
+        let image = UIImage(named: animal.name)
         
         view.addSubview(animalView)
-        animalView.image = UIImage(named: animalImage)  //set UIImage to our UIImageview for he background
+        animalView.image = image //set UIImage to our UIImageview for he background
         animalView.layer.cornerRadius = 15
         animalView.contentMode = .scaleAspectFill
         animalView.clipsToBounds = true
@@ -79,7 +69,9 @@ class AnimalViewController: UIViewController {
     
     func setupLabel(){
         view.addSubview(animalLabel)
-        animalLabel.text = animalList[randNum].uppercased()
+        let animal = animalList[randNum]
+        
+        animalLabel.text = animal.name.uppercased()
         animalLabel.backgroundColor = .white
         animalLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         animalLabel.layer.cornerRadius = 15
@@ -132,8 +124,9 @@ class AnimalViewController: UIViewController {
     
     @objc func playSound(sender: UIButton){
         //this function will use the AV to play the sound
-   
-        let utterance = AVSpeechUtterance(string: animalList[randNum])
+        let animal = animalList[randNum]
+        
+        let utterance = AVSpeechUtterance(string: animal.name)
         utterance.rate = 0.1
         utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
         synthesizer.speak(utterance)

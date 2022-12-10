@@ -6,18 +6,20 @@
 //
 
 import UIKit
+import AVFoundation
 
 class ViewController: UIViewController {
     let headerLabel = UILabel() //UILabel is a class - class is uppercase, func is lowercase
     let peekabooLabel = UILabel()
     let startButton = UIButton(type: .system)
     let peopleViewcontroller = PeopleViewController()
+    var player: AVAudioPlayer?
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-        
+        view.backgroundColor = UIColor.systemBackground
+    
         setupHeaderLabel()
         setupPeekaBooLabel()
         setupStartButton()
@@ -27,7 +29,7 @@ class ViewController: UIViewController {
     func setupHeaderLabel() {
         view.addSubview(headerLabel)
         headerLabel.text = "LET'S PLAY"
-        headerLabel.textColor = .white
+        headerLabel.textColor = UIColor.label
         headerLabel.font = UIFont.systemFont(ofSize: 50, weight: .bold)
         
         //CONSTRANTS
@@ -39,7 +41,7 @@ class ViewController: UIViewController {
     func setupPeekaBooLabel() {
         view.addSubview(peekabooLabel)
         peekabooLabel.text = "PEEK A BOO"
-        peekabooLabel.textColor = .white
+        peekabooLabel.textColor = UIColor.label
         peekabooLabel.font = UIFont.systemFont(ofSize: 50, weight: .medium)
         
         //CONSTRAINTS
@@ -54,11 +56,12 @@ class ViewController: UIViewController {
         view.addSubview(startButton)
         startButton.addTarget(self, action:#selector(startGame), for: .touchUpInside)
         startButton.setTitle("START", for: .normal)
-        startButton.setTitleColor(.black, for: .normal)
+        startButton.setTitleColor(UIColor(named: "buttonText"), for: .normal)
         
         startButton.titleLabel?.font = UIFont(name: "Helvetica Neue", size: 20)
-        startButton.backgroundColor = .white
+        startButton.backgroundColor = UIColor(named: "buttonIcons")
         startButton.layer.cornerRadius = 15
+
         
         //CONSTRAINTS
         startButton.translatesAutoresizingMaskIntoConstraints = false
@@ -71,9 +74,36 @@ class ViewController: UIViewController {
 
     }
     
+    func playSound() {
+        print("I'm playing a sound")
+        
+        guard let url = Bundle.main.url(forResource: "PeekaBoo", withExtension: "mp3") else { return }
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+
+            /* iOS 10 and earlier require the following line:
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+
+            guard let player = player else { return }
+
+            player.play()
+
+        } catch let error {
+            print(error.localizedDescription)
+        }
+        
+    }
+    
     @objc func startGame(sender:UIButton) {
+        playSound()
         self.present(peopleViewcontroller, animated: true, completion: nil)
     }
+    
 }
 
 

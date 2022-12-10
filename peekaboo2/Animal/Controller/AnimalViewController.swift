@@ -25,8 +25,7 @@ class AnimalViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .black
-        
+        view.backgroundColor = UIColor.systemBackground
         setupAnimalView()
         setupLabelContainerView()
         setupLabel()
@@ -54,7 +53,7 @@ class AnimalViewController: UIViewController {
     
     func setupLabelContainerView(){
         view.addSubview(labelContainerView)
-        labelContainerView.backgroundColor = .white
+        labelContainerView.backgroundColor = UIColor.secondarySystemBackground
         labelContainerView.layer.cornerRadius = 15
         labelContainerView.clipsToBounds = true
         labelContainerView.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
@@ -72,7 +71,8 @@ class AnimalViewController: UIViewController {
         let animal = animalList[randNum]
         
         animalLabel.text = animal.name.uppercased()
-        animalLabel.backgroundColor = .white
+        animalLabel.textColor = UIColor.label
+        animalLabel.backgroundColor = .clear
         animalLabel.font = UIFont.systemFont(ofSize: 30, weight: .bold)
         animalLabel.layer.cornerRadius = 15
         animalLabel.clipsToBounds = true
@@ -108,11 +108,11 @@ class AnimalViewController: UIViewController {
     func setupPlayButton(){
         view.addSubview(playButton)
         let playImageConfig = UIImage.SymbolConfiguration(pointSize: 35)
-        let playImage = UIImage(systemName: "play.rectangle.fill", withConfiguration: playImageConfig)?.withTintColor(.black, renderingMode: .alwaysOriginal)
+        let playImage = UIImage(systemName: "play.rectangle.fill", withConfiguration: playImageConfig)
         
         playButton.addTarget(self, action: #selector(playSound), for: .touchUpInside)
-        
         playButton.setImage(playImage, for: .normal)
+        playButton.tintColor = UIColor(named: "buttonIcons")
         
         //    CONSTAINTS
         playButton.translatesAutoresizingMaskIntoConstraints = false

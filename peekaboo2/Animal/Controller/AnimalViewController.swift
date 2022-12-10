@@ -23,6 +23,8 @@ class AnimalViewController: UIViewController {
     
     let synthesizer = AVSpeechSynthesizer()
     
+    var player: AVAudioPlayer?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.systemBackground
@@ -31,6 +33,7 @@ class AnimalViewController: UIViewController {
         setupLabel()
         setupGoToPeopleButton()
         setupPlayButton()
+        playBoo()
     }
     
     func setupAnimalView() {
@@ -133,4 +136,27 @@ class AnimalViewController: UIViewController {
         
 
     }
+    
+    func playBoo() {
+        guard let url = Bundle.main.url(forResource: "Boo", withExtension: "mp3") else { return }
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+
+            /* iOS 10 and earlier require the following line:
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+
+            guard let player = player else { return }
+
+            player.play()
+
+        } catch let error {
+            print(error.localizedDescription)
+        }
+    }
+
 }

@@ -75,8 +75,6 @@ class ViewController: UIViewController {
     }
     
     func playSound() {
-        print("I'm playing a sound")
-        
         guard let url = Bundle.main.url(forResource: "PeekaBoo", withExtension: "mp3") else { return }
 
         do {
@@ -100,7 +98,7 @@ class ViewController: UIViewController {
     }
     
     @objc func startGame(sender:UIButton) {
-        playSound()
+//        playSound()
         self.present(peopleViewcontroller, animated: true, completion: nil)
     }
     
